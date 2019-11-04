@@ -1,0 +1,58 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css?family=Squada+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Be+Vietnam&display=swap');
+html{
+  font-family: 'Be Vietnam', sans-serif;
+  min-height: 100%;
+  position:relative;
+}
+body {
+  margin: 0 0 110px;
+}
+footer{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.shadow-cus{
+  box-shadow:0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.shadow-cus1{
+  box-shadow:0 0 4px rgba(0, 0, 0, 0.3);
+}
+.font1{
+  font-family: 'Squada One', cursive;
+}
+.font2{
+  font-family: 'Be Vietnam', sans-serif;
+}
+.bg-primary2{
+  background:#5eacff;
+}
+.bg-primary3{
+  background:#0065d1;
+}
+.shadow-ins{
+  box-shadow:inset 0 7px 10px -7px rgba(0, 0, 0, 0.4);
+}
+.ccard{
+  cursor:pointer;
+  transition:all 0.2s;
+  color:#212529;
+}
+.ccard h3{
+  color:#bcdcff;
+}
+.ccard:hover{
+  background:#0b74e4;
+  padding-left:5% !important;
+  color:white;
+  box-shadow:0 0 4px 2px rgba(0, 0, 0, 0.3);
+}
+.h-100cus{
+  height:500px;
+}
+.w-cus-sm{
+  width:10px!important;
+}

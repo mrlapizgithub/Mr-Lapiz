@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Test review</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/logo.png" rel="icon" type="image/x-icon"/>
+  </head>
+  <body>
+    <div class = "p-2 mb-2 text-center font1 bg-primary text-white shadow-cus"><h1>Mr. Lápiz</h1>
+    <h2>How to Spanish?</h2>
+    <a class = "text-center text-white" href = "/">Return</a><iframe src='https://tracker-analytics.mr-lapiz.cf' style='border:0;width:100%;height:30px;overflow:hidden;' scrolling = "no"></iframe></div>
+    <h1 class = "font1 text-center">Test review</h1>
+    <h3 class = "text-center">Revisión de prueba</h3>
+    <p class = "ml-2">How to play: There are 3 types of questions. If you get el, la, los, or las, answer what the "the" represents. For example, la represents female. If you get the numbers or phrases like "Me llamo", translate them. If you get the cognado, for example -dad, translate it to -ty.</p>
+    <div class = "m-2 p-2 bg-primary2 rounded shadow-cus1">
+      <p class = "m-0">Your score: <span class = "score">0</span></p>
+      <p class = "mb-1">Change <span class = "q-cont">Loading...</span>.</p>
+      <div class = "input-group mb-3">
+        <input class = "form-control answer" placeholder = "Your answer" min = "0" max = "10">
+        <div class="input-group-append">
+          <button class = "btn btn-success submit" type = "button" id = "button-addon2">Submit</button>
+        </div>
+      </div>
+    </div>
+    <footer class = "bg-primary3 m-0 pt-4 p-2 shadow-ins"><p class = "font2 text-white text-center m-0">Copyright &copy; by Mr. Lápiz. Code created by Junhao Zhang.</p><p class = "text-white text-center"><a href = "#" class = "text-white">About</a> | <a href = "#" class = "text-white">Contributing</a></p></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+      var esn = "cero uno dos tres cuatro cinco seis siete ocho nueve diez once doce trece catorce quince dieciséis diecisiete dieciocho diecinueve veinte".split(" ");
+      var es = "El,la,los,las,-ante,-ico (e.g. Patriótico),-dad,-cto,-m,-ista,-ismo,-ncia,-ción,-ario,-cia,-iva,-oso,¿Cómo te llamas?,Me llamo,¿Cómo estás?,¿Y tú?,Estoy,Muy bien,Bien,más o menos,Mal,¿De dónde eres?,Soy de,Mucho gusto.,Igualmente.".split(",");
+      var en = "Male,Female,Males,Females,-ant,-ic,-ty,-ct,-ma,-ist,-ism,-nce,-tion,-ary,-cy,-ive,-ous,What's your name,My name is,How are you,And you,I am,Very good,Good,so-so,Bad,Where are you from,I am from,Nice to meet you,Likewise".split(",");
+      var q = [];
+      for(var i = 0; i < esn.length; i ++){q.push({q:esn[i],a:i});}
+      for(var i = 0; i < es.length; i ++){q.push({q:es[i],a:en[i]});}
+      initgame($('.q-cont'),q,$('.answer'),$('.submit'),$('.score'));
+    </script>
+  </body>
+</html>

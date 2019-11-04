@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Simple words</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/logo.png" rel="icon" type="image/x-icon"/>
+  </head>
+  <body>
+    <div class = "p-2 mb-2 text-center font1 bg-primary text-white shadow-cus"><h1>Mr. Lápiz</h1>
+    <h2>How to Spanish?</h2>
+    <a class = "text-center text-white" href = "/">Return</a><iframe src='https://tracker-analytics.mr-lapiz.cf' style='border:0;width:100%;height:30px;overflow:hidden;' scrolling = "no"></iframe></div>
+    <h1 class = "font1 text-center">Simple words</h1>
+    <h3 class = "text-center">Fácil palabras</h3>
+    <p class = "ml-2">How to play: Translate the text that is given to you. If you get it correct, your score increases, if you get it wrong, your score resets to 0. Have fun!</p>
+    <div class = "m-2 p-2 bg-primary2 rounded shadow-cus1">
+      <p class = "m-0">Your score: <span class = "score">0</span></p>
+      <p class = "mb-1">What is <span class = "q-cont">Loading...</span> in english?</p>
+      <div class = "input-group mb-3">
+        <input class = "form-control answer" placeholder = "Your answer" min = "0" max = "10">
+        <div class="input-group-append">
+          <button class = "btn btn-success submit" type = "button" id = "button-addon2">Submit</button>
+        </div>
+      </div>
+    </div>
+    <footer class = "bg-primary3 m-0 pt-4 p-2 shadow-ins"><p class = "font2 text-white text-center m-0">Copyright &copy; by Mr. Lápiz. Code created by Junhao Zhang.</p><p class = "text-white text-center"><a href = "#" class = "text-white">About</a> | <a href = "#" class = "text-white">Contributing</a></p></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+      var es = "Adiós,Hola,Buenos días,Buenas tardes,Buenas Noches,Chao,Hasta Luego,Hasta mañana,Señor,Señora,Señorita".split(",");
+      var en = "Goodbye,Hello,Good morning,Good afternoon,Good night,Bye,See you later,See you tomorrow,Mister,Misses,Miss".split(",");
+      var q = [];
+      for(var i = 0; i < es.length; i ++){q.push({q:es[i],a:en[i]});}
+      initgame($('.q-cont'),q,$('.answer'),$('.submit'),$('.score'));
+    </script>
+  </body>
+</html>
