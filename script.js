@@ -7,7 +7,7 @@ $('.sgnup').click(function(){
   if(username.replace(/\ /gi,"") != "" && password.replace(/\ /gi,"") != ""){
     axios.get(url).then(function(data){
       console.log(data);
-      var users = data.data.result.users;
+      var users = data.data.result;
       var isused = false;
       for(var i = 0; i < users.length; i ++){
         if(users[i].un.toLowerCase() == username.toLowerCase()){
@@ -35,7 +35,7 @@ $('.login').click(function(){
   var password = $('.password').val();
   if(username != "" && password != ""){
     axios.get(url).then(function(data){
-      var users = data.data.result.users;
+      var users = data.data.result;
       console.log(users);
       var score = "";
       for(var i = 0; i < users.length; i ++){
@@ -59,15 +59,15 @@ function addto(score){
   var a = localStorage.getItem('uspas');
   var b = JSON.parse(a);
   axios.get(url).then(function(data){
-    var users = data.data.result.users;
+    var users = data.data.result;
       for(var i = 0; i < users.length; i ++){
         if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
-                  
+          users[i].sc+=score;
         }
       }
+    axios.post(url,users);
   })
 }
-addto();
 function initgame(qcont,questions,answer,btn,score){
   var game = {
     questions:questions,
@@ -85,14 +85,17 @@ function initgame(qcont,questions,answer,btn,score){
       if(answer.val()==ques.a){
         s++;
         score.html(s);
+        addto(1);
       }else if(answer.val().toLowerCase().replace(/\ /g,"")==ques.a.toString().toLowerCase().replace(/\ /g,"")){
         s++;
         score.html(s);
+        addto(1);
       }else{
         console.log("");
         s=0;
         score.html(s);
         alert("You were wrong, the correct answer is "+ques.a);
+        addto(-1);
       }
       ques = questions[Math.floor(Math.random()*questions.length)];
       qcont.html(ques.q);
