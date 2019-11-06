@@ -58,10 +58,13 @@ $('.login').click(function(){
 function islogin(){
   var b = JSON.parse(localStorage.getItem('uspas'))
   if(b != null){
-    
+    if(){}
   }
 }
-islogin()
+islogin();
+
+//ensure https
+if(window.location.protocol === "http:"){window.location = "https://"+window.location.hostname+window.location+pathname;}
 
 function addto(score){
   var a = localStorage.getItem('uspas');
