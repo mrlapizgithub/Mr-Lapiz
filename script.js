@@ -22,7 +22,7 @@ $('.sgnup').click(function(){
           users
         }).then(function(data){console.log(data);});
       $('.tobekilled').html("Successfully signed up! Credentials are: <br>Username: <code>"+username+"</code><br>Password: <code>"+password+"</code><br>Remember this!");
-        localStorage.setItem('uspas', {username:username,password:password});
+        localStorage.setItem('uspas', JSON.stringify({username:username,password:password}));
       }
     }).catch(function(err){console.log(err);});
   }else{
@@ -39,11 +39,10 @@ $('.login').click(function(){
       console.log(users);
       var score = "";
       for(var i = 0; i < users.length; i ++){
-        if(users[i].pw == password.toLowerCase() && users[i].un.toLowerCase() == username.toLowerCase()){
+        if(users[i].pw == password && users[i].un.toLowerCase() == username.toLowerCase()){
           score = users[i].sc;
           $('.tobekilled').html("Welcome "+users[i].un+"! Your score is: "+score);
           localStorage.setItem('uspas', JSON.stringify({username:users[i].un,password:users[i].pw}));
-          //alert(JSON.parse(localStorage.getItem('uspas')))
           break;
         }
         $('.tobekilled').html("Couldn't find account. Maybe you forgot something?");
@@ -58,7 +57,35 @@ $('.login').click(function(){
 function islogin(){
   var b = JSON.parse(localStorage.getItem('uspas'))
   if(b != null){
-    if(){}
+    $('.offsite').each(function(){
+      var a = $(this).attr('href');
+      $(this).attr('href',a+"?us="+b.username+"&pas="+b.password)
+    });
+    if(window.location.pathname === "/lgin.html"){
+      axios.get(url).then(function(data){
+        var users = data.data.result;
+        for(var i = 0; i < users.length; i ++){
+          if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
+            score = users[i].sc;
+            $('.tobekilled').html("Welcome "+users[i].un+"! Your score is: "+score);
+            break;
+          }
+          $('.tobekilled').html("Error: Failed to fetch");
+        }
+      });
+    }else{
+      axios.get(url).then(function(data){
+        var users = data.data.result;
+        for(var i = 0; i < users.length; i ++){
+          if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
+            score = users[i].sc;
+            $('div').first().append("<span class = 'font2 scoretxt'>Welcome "+users[i].un+"! Your score is: "+score+"</span>");
+            break;
+          }
+          $('.tobekilled').html("Error: Failed to fetch");
+        }
+      });
+    }
   }
 }
 islogin();
@@ -74,6 +101,7 @@ function addto(score){
       for(var i = 0; i < users.length; i ++){
         if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
           users[i].sc+=score;
+          $('.scoretxt').html("Welcome "+users[i].un+"! Your score is: "+users[i].sc);
         }
       }
     axios.post(url,users);
