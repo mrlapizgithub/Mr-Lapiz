@@ -55,6 +55,14 @@ $('.login').click(function(){
   }
 });
 
+function islogin(){
+  var b = JSON.parse(localStorage.getItem('uspas'))
+  if(b != null){
+    
+  }
+}
+islogin()
+
 function addto(score){
   var a = localStorage.getItem('uspas');
   var b = JSON.parse(a);
