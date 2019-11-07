@@ -7,7 +7,7 @@ $('.sgnup').click(function(){
   if(username.replace(/\ /gi,"") != "" && password.replace(/\ /gi,"") != ""){
     axios.get(url).then(function(data){
       console.log(data);
-      var users = data.data.result;
+      var users = data.data.result.users;
       var isused = false;
       for(var i = 0; i < users.length; i ++){
         if(users[i].un.toLowerCase() == username.toLowerCase()){
@@ -19,7 +19,7 @@ $('.sgnup').click(function(){
       if(!isused){
         users.push({un:username,pw:password,sc:0});
         axios.post(url, {
-          users
+          users: users
         }).then(function(data){console.log(data);});
       $('.tobekilled').html("Successfully signed up! Credentials are: <br>Username: <code>"+username+"</code><br>Password: <code>"+password+"</code><br>Remember this!");
         localStorage.setItem('uspas', JSON.stringify({username:username,password:password}));
@@ -35,7 +35,7 @@ $('.login').click(function(){
   var password = $('.password').val();
   if(username != "" && password != ""){
     axios.get(url).then(function(data){
-      var users = data.data.result;
+      var users = data.data.result.users;
       console.log(users);
       var score = "";
       for(var i = 0; i < users.length; i ++){
@@ -58,8 +58,8 @@ function islogin(){
   var b = JSON.parse(localStorage.getItem('uspas'))
   if(b != null){
     $('.offsite').each(function(){
-      var a = $(this).attr('href');
-      $(this).attr('href',a+"?us="+b.username+"&pas="+b.password)
+      var a = $(this).parent().attr('href');
+      $(this).parent().attr('href',a+"?us="+b.username+"&pas="+b.password);
     });
     if(window.location.pathname === "/lgin.html"){
       axios.get(url).then(function(data){
@@ -91,7 +91,7 @@ function islogin(){
 islogin();
 
 //ensure https
-if(window.location.protocol === "http:"){window.location = "https://"+window.location.hostname+window.location+pathname;}
+if(window.location.protocol === "http://"){window.location = "https://"+window.location.hostname+window.location+pathname;}
 
 function addto(score){
   var a = localStorage.getItem('uspas');
