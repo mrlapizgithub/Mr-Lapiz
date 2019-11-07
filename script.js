@@ -1,12 +1,11 @@
 var url = "https://www.jsonstore.io/7ed732e4c3f28db6070f2109f184c4543dd03def9a5779c831af9357f2a98c2e";
-var users = [{un:"Junhao",pw:"Zhang",sc:6969}];
+var users;
 $('.sgnup').click(function(){
   var username = $('.sgnusername').val();
   var password = $('.sgnuppasswrd').val();
   var welcometxt = $('.sgnupcode').val();
   if(username.replace(/\ /gi,"") != "" && password.replace(/\ /gi,"") != ""){
     axios.get(url).then(function(data){
-      console.log(data);
       var users = data.data.result.users;
       var isused = false;
       for(var i = 0; i < users.length; i ++){
@@ -20,7 +19,7 @@ $('.sgnup').click(function(){
         users.push({un:username,pw:password,sc:0});
         axios.post(url, {
           users: users
-        }).then(function(data){console.log(data);});
+        });
       $('.tobekilled').html("Successfully signed up! Credentials are: <br>Username: <code>"+username+"</code><br>Password: <code>"+password+"</code><br>Remember this!");
         localStorage.setItem('uspas', JSON.stringify({username:username,password:password}));
       }
@@ -36,7 +35,6 @@ $('.login').click(function(){
   if(username != "" && password != ""){
     axios.get(url).then(function(data){
       var users = data.data.result.users;
-      console.log(users);
       var score = "";
       for(var i = 0; i < users.length; i ++){
         if(users[i].pw == password && users[i].un.toLowerCase() == username.toLowerCase()){
@@ -63,7 +61,7 @@ function islogin(){
     });
     if(window.location.pathname === "/lgin.html"){
       axios.get(url).then(function(data){
-        var users = data.data.result;
+        var users = data.data.result.users;
         for(var i = 0; i < users.length; i ++){
           if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
             score = users[i].sc;
@@ -75,7 +73,7 @@ function islogin(){
       });
     }else{
       axios.get(url).then(function(data){
-        var users = data.data.result;
+        var users = data.data.result.users;
         for(var i = 0; i < users.length; i ++){
           if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
             score = users[i].sc;
@@ -97,14 +95,14 @@ function addto(score){
   var a = localStorage.getItem('uspas');
   var b = JSON.parse(a);
   axios.get(url).then(function(data){
-    var users = data.data.result;
+    var users = data.data.result.users;
       for(var i = 0; i < users.length; i ++){
         if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
           users[i].sc+=score;
           $('.scoretxt').html("Welcome "+users[i].un+"! Your score is: "+users[i].sc);
         }
       }
-    axios.post(url,users);
+    axios.post(url,{users:users});
   })
 }
 function initgame(qcont,questions,answer,btn,score){
@@ -130,7 +128,6 @@ function initgame(qcont,questions,answer,btn,score){
         score.html(s);
         addto(1);
       }else{
-        console.log("");
         s=0;
         score.html(s);
         alert("You were wrong, the correct answer is "+ques.a);
