@@ -1,4 +1,4 @@
-var url = "https://www.jsonstore.io/7ed732e4c3f28db6070f2109f184c4543dd03def9a5779c831af9357f2a98c2e";
+var url = "CENSORED";
 var users;
 $('.sgnup').click(function(){
   var username = $('.sgnusername').val();
