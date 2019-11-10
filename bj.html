@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Blackjack</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/logo.png" rel="icon" type="image/x-icon"/>
+  </head>
+  <body>
+    <div class = "p-2 mb-2 text-center font1 bg-primary text-white shadow-cus"><h1>Mr. Lápiz</h1>
+    <h2>How to Spanish?</h2><a class = "text-center text-white" href = "/">Return</a><iframe src='https://tracker-analytics.mr-lapiz.cf' style='border:0;width:100%;height:30px;overflow:hidden;' scrolling = "no"></iframe></div>
+    <h1 class = "font1 text-center">Blackjack</h1>
+    <p class = "ml-2">How to play: Choose how many points you want to bet on. You then get a random number between 1-21. The bot also gets it as well. Whoever's number is bigger gets those points!</p>
+    <div class = "pg1 m-2 p-2 bg-primary2 rounded shadow-cus1">
+      Stakes: <select class="custom-select mb-1 stakes">
+        <option value="10">10 points</option>
+        <option value="50">50 points</option>
+        <option value="69">69 points</option>
+        <option value="100">100 points</option>
+        <option value="169" selected>169 points</option>
+        <option value="500">500 points</option>
+        <option value="6969">6969 points</option>
+      </select>
+      <button class = "btn btn-success btn-block bet">Bet!</button>
+    </div>
+    <div class = "pg2 m-2 p-2 bg-primary2 rounded shadow-cus1 hide">
+      <strong>Stakes</strong>: <span class = "s">169</span><br>
+      Your number: <span class = "plnum">1</span><br>
+      Bot's number: <span class = "btnum">1</span>
+      <button class = "btn btn-success btn-block" onclick = "location.reload();">Again!</button>
+    </div>
+    <footer class = "bg-primary3 m-0 pt-4 p-2 shadow-ins"><p class = "font2 text-white text-center m-0">Copyright &copy; by Mr. Lápiz. Code created by Junhao Zhang.</p><p class = "text-white text-center"><a href = "wip.html" class = "text-white">About</a> | <a href = "contr.html" class = "text-white">Contributing</a></p></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+      function random(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      var n = new Date().getTime();
+      var date = new Date;
+      date.setTime(n);
+      var seconds = date.getSeconds();
+      var minutes = date.getMinutes();
+      var hour = date.getHours();
+      if(hour != 6){
+        $('.pg1').html("Come back at 6:00-6:10 AM/PM to play blackjack!<br>Time: "+hour+":"+(minutes<10?"0"+minutes:minutes)+":"+seconds);
+      }else{
+        if(minutes > 10){
+          $('.pg1').html("Come back at 6:00-6:10 AM/PM to play blackjack!<br>Time: "+hour+":"+minutes+":"+seconds);
+        }
+      }
+      if(gets()<=0){
+        $('.pg1').html("Earn some more points before betting!");
+      }
+      $('.bet').click(function(){
+        $('.pg1').fadeOut(200,function(){
+          var s = parseInt($('.stakes').val());
+          console.log(typeof s);
+          $('.s').html(s);
+          if(s>=10&&s<=50){
+            var p = random(1,21);
+            var b = random(1,21);
+            while(p==b){
+              b = random(1,21);
+            }
+          }
+          if(s>=69&&s<=100){
+            var p = random(1,69);
+            var b = random(1,69);
+            while(p==b){
+              b = random(1,69);
+            }
+          }
+          if(s>=169&&s<=500){
+            var p = random(1,169);
+            var b = random(1,169);
+            while(p==b){
+              b = random(1,169);
+            }
+          }
+          if(s==6969){
+            var p = random(1,6969);
+            var b = random(1,6969);
+            while(p==b){
+              b = random(1,6969);
+            }
+          }
+          $('.plnum').html(p);
+          $('.btnum').html(b);
+          if(p>b){
+            addto(s);
+          }
+          if(p<b){
+            addto(-s);
+          }
+          if(p==b){
+            addto(-s);
+          }
+          $('.pg2').fadeIn(200);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -39,7 +39,11 @@ $('.login').click(function(){
       for(var i = 0; i < users.length; i ++){
         if(users[i].pw == password && users[i].un.toLowerCase() == username.toLowerCase()){
           score = users[i].sc;
-          $('.tobekilled').html("Welcome "+users[i].un+"! Your score is: "+score);
+          $('.tobekilled').html("Welcome "+users[i].un+"! Your score is: "+score+"<br><a class = 'lgoutbtn' href = '#'>Log out</a>");
+          $('.lgoutbtn').click(function(){
+            localStorage.removeItem("uspas");
+            location.reload();
+          });
           localStorage.setItem('uspas', JSON.stringify({username:users[i].un,password:users[i].pw}));
           break;
         }
@@ -65,7 +69,11 @@ function islogin(){
         for(var i = 0; i < users.length; i ++){
           if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
             score = users[i].sc;
-            $('.tobekilled').html("Welcome "+users[i].un+"! Your score is: "+score);
+            $('.tobekilled').html("Welcome "+users[i].un+"! Your score is: "+score+"<br><a class = 'lgoutbtn' href = '#'>Log out</a>");
+            $('.lgoutbtn').click(function(){
+              localStorage.removeItem("uspas");
+              location.reload();
+            });
             break;
           }
           $('.tobekilled').html("Error: Failed to fetch");
@@ -90,7 +98,6 @@ islogin();
 
 //ensure https
 if(window.location.protocol === "http://"){window.location = "https://"+window.location.hostname+window.location+pathname;}
-
 function addto(score){
   var a = localStorage.getItem('uspas');
   var b = JSON.parse(a);
@@ -98,8 +105,21 @@ function addto(score){
     var users = data.data.result.users;
       for(var i = 0; i < users.length; i ++){
         if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
-          users[i].sc+=score;
+          users[i].sc+=parseInt(score);
           $('.scoretxt').html("Welcome "+users[i].un+"! Your score is: "+users[i].sc);
+        }
+      }
+    axios.post(url,{users:users});
+  })
+}
+function gets(){
+  var a = localStorage.getItem('uspas');
+  var b = JSON.parse(a);
+  axios.get(url).then(function(data){
+    var users = data.data.result.users;
+      for(var i = 0; i < users.length; i ++){
+        if(users[i].pw == b.password && users[i].un.toLowerCase() == b.username.toLowerCase()){
+          return users;
         }
       }
     axios.post(url,{users:users});
