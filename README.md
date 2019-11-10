@@ -8,4 +8,5 @@
 **DESCRIPTION**: Mr. Lápiz now supports accounts! Still in small beta mode, it still works! Create one today!
 ## OPEN SOURCE!
 **DESCRIPTION**: Mr. Lápiz is now open source! [Contribute today](https://github.com/thesweatypuzzl3r/Mr.-L-piz)!
-"censored"
+## DISCONTINUED:
+**DESCRIPTION**: Sadly, we are using a different provider now and github now is used for suggestions.
